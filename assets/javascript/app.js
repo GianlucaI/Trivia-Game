@@ -1,63 +1,54 @@
-//test to check if html and java script are linked
-// console.log('start button was clicked');
-//removes start button when
-// $('#subwrapper').remove();
-//removes start button once pressed
-//   $('#start').remove();
-//   for (var i = 0; i < questions.length; i++) {
-//     $('#subwrapper').append('<h2>' + questions[i].question + '<h2>');
-//     for (var j = 0; j < questions[i].answer.length; j++) {
-//       $('#subwrapper').append(
-//         "<input type='radio' name='question-" +
-//           i +
-//           "' value='" +
-//           questions[i].answer[j] +
-//           "'>" +
-//           questions[i].answer[j]
-//       );
-//     }
-//   }
-//   game.start();
-// });
-
+//Starts game when the start button is clicked
 $('#start').on('click', function() {
   game.start();
 });
 
+//Function to endthe came when the done button is clicked
 $(document).on('click', '#end', function() {
   game.done();
 });
 
+//Array of objects to hold all the questions, answer and correct answers
 var questions = [
   {
-    question: '1. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: "1. What is the name of Han Solo's ship?",
+    answer: ['The Falcon', 'Death Star', 'Star Cruiser', 'Millennium Falcon'],
+    correctAnswer: 'Millennium Falcon'
   },
   {
     question: '2. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    answer: [
+      'Anaken Skywalker',
+      'Chancellor Valorum',
+      'Darth Maul',
+      'The Sith'
+    ],
+    correctAnswer: 'Anaken Skywalker'
   },
   {
-    question: '3. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: "3. Who is Luke Skywalker and Leia's Mother?",
+    answer: [
+      'Aniken Skywalker',
+      'Darth Vader',
+      'Padme Amidala',
+      'Queen Breha Organa'
+    ],
+    correctAnswer: 'Padme Amidala'
   },
   {
-    question: '4. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: '4. How many engines are on an X-wing fighter?',
+    answer: ['2', '3', '4', '6'],
+    correctAnswer: '4'
   },
   {
-    question: '5. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: '5. What plannet is home to Chebacca and the Wookies?',
+    answer: ['Logray', 'Mandalor', 'Kashyyyk', 'Earth'],
+    correctAnswer: 'Kashyyyk'
   },
   {
-    question: '6. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: '6. How many members are there in the Jedi Council?',
+    answer: ['9', '10', '12', '14'],
+    correctAnswer: '12'
   },
   {
     question: '7. Who is Darth Vader?',
@@ -65,26 +56,28 @@ var questions = [
     correctAnswer: 'Aniken Skywalker'
   },
   {
-    question: '8. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: '8. What invsible power binds the galaxy together?',
+    answer: ['Dark Matter', 'The Force', 'The Sith', 'The Jedi'],
+    correctAnswer: 'The Force'
   },
   {
-    question: '9. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question:
+      '9. What animal did the visulaeffects crew stydy when designing the Imperial Walkers?',
+    answer: ['Elephant', 'Zebra', 'Lion', 'Gorilla'],
+    correctAnswer: 'Elephant'
   },
   {
-    question: '9. Who is Darth Vader?',
-    answer: ['Aniken Skywalker', 'Han Solo', 'Darth Maul', 'Asoku'],
-    correctAnswer: 'Aniken Skywalker'
+    question: '10. What substance powers the Jedi lightsabers?',
+    answer: ['Diamonds', 'Ilum Crystals', 'Water', 'The Force'],
+    correctAnswer: 'Ilum Crystals'
   }
 ];
 
+//Game variables are declared andset in an object as well the the countdown time function which is used to countdown the counter.
 var game = {
   correct: 0,
   incorrect: 0,
-  counter: 20,
+  counter: 100,
   countdown: function() {
     game.counter--;
     $('#counter').html(game.counter);
@@ -94,14 +87,19 @@ var game = {
     }
   },
 
+  //start function exectued when the start button is clicked.
+
   start: function() {
+    //Steps:
+    //1- timer starts and is reduced by 1 second.
     timer = setInterval(game.countdown, 1000);
     $('#subwrapper').prepend(
       '<h2>Time Remaining: <span id="counter">120</span> Seconds</h2>'
     );
+    //2- wrapper containing the start button is replaced with the questions.
     $('#start').remove();
     for (var i = 0; i < questions.length; i++) {
-      $('#subwrapper').append('<h2>' + questions[i].question + '<h2>');
+      $('#subwrapper').append('<h2>' + questions[i].question + '</h2>');
       for (var j = 0; j < questions[i].answer.length; j++) {
         $('#subwrapper').append(
           "<input type='radio' name='question-" +
@@ -113,6 +111,7 @@ var game = {
         );
       }
     }
+    //3- Done button added at bottom of questions so that the quiz can be ended before timer expires if required
     $('#subwrapper').append('<br><button id="end">DONE</button>');
   },
 
